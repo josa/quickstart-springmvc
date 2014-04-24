@@ -33,9 +33,20 @@
 	    <property name="maxUploadSize" value="5120"/> <!-- 5MB -->
 	</bean>
 	
+	
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-		<property name="defaultLocale" value="pt_BR"/>
+		<!-- property name="defaultLocale" value="pt_BR"/ -->
 	</bean>
+	
+ 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="language" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
     
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basename="messages/messages" />
         
